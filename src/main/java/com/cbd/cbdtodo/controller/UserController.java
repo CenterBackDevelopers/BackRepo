@@ -24,7 +24,7 @@ public class UserController {
 //    }
 
     @PostMapping("/user")
-    //
+    // 현재 회원가입 기능 구현 완료, 예외처리 개발 완료. last_visited_date는 구현이 어려워 잠시 미뤄둠
     public ResponseEntity<String> signup(@RequestBody UserSignupRequest request) {
         try {
             userService.signupUser(request);
