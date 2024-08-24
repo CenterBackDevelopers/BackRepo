@@ -35,10 +35,11 @@ public class UserService {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
         // 5. 이름 자릿수 확인
-        else if(request.getUserName().length() < 5 || 15 < request.getUserName().length() ) {
+        else if(request.getUserName().length() < 2 || 10 < request.getUserName().length() ) {
             throw new IllegalArgumentException("이름은 1~10자리여야 합니다.");
         }
-        userRepository.save(new User(request.getUserId(), request.getUserPassword(), request.getUserPasswordConfirm(), request.getUserName()));
+        userRepository.save(new User
+                (request.getUserId(), request.getUserPassword(), request.getUserPasswordConfirm(), request.getUserName()));
     }
 
     @Transactional

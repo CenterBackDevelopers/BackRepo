@@ -12,7 +12,7 @@ public class UserController {
 
     private final UserService userService;
 
-    public UserController (UserService userService) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
@@ -28,9 +28,9 @@ public class UserController {
             userService.signupUser(request);
             return new ResponseEntity<>("성공적으로 회원 가입 되었습니다.", HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return new ResponseEntity<>("서버에서 에러가 발생해 회원가입에 실패했습니다.",HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("서버에서 에러가 발생해 회원가입에 실패했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -38,13 +38,14 @@ public class UserController {
     @GetMapping("/user/check")
     public ResponseEntity<String> userIdDuplicateCheck(@RequestParam String userId) {
         try {
-           userService.userIdDuplicateCheck(userId);
+            userService.userIdDuplicateCheck(userId);
             // HTTP 204 No Content는 응답 본문을 포함하지 않는다고 한다. 그래서 일단 OK로 했다.
-           return new ResponseEntity<>("사용 가능한 아이디입니다.",HttpStatus.OK);
+            return new ResponseEntity<>("사용 가능한 아이디입니다.", HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         } catch (Exception e) {
-            return new ResponseEntity<>("서버에서 에러가 발생해 아이디 중복 확인에 실패했습니다.",HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("서버에서 에러가 발생해 아이디 중복 확인에 실패했습니다."
+                    , HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -58,6 +59,5 @@ public class UserController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
         }
     }
-
 
 }
