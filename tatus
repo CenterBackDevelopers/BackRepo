@@ -1,0 +1,80 @@
+[33mcommit f72002bdb7996452925ea40398cb46bf3dc5e857[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: twootwoo <mbnman12@gmail.com>
+Date:   Sat Aug 24 16:39:27 2024 +0900
+
+    chore : 회원가입시 유저 이름 검증 로직 수정
+    
+    UserService.signupUser 메소드의 유저 이름 길이 검증 로직을 2자리~10자리일때만 통과하도록 수정.
+
+[33mcommit 5d6dac89fe280cdefac9c69e41e7e2ead82b61e1[m
+Merge: 496883d 3b42ef1
+Author: TwooTwoo <mbnman12@gmail.com>
+Date:   Sat Aug 24 13:13:37 2024 +0900
+
+    CHORE : signupUser logic typo correction
+
+[33mcommit 496883ddc56f298fc2cee44c0ca74e93f4e942c1[m
+Author: TwooTwoo <ktw@twootwooui-MacBookAir.local>
+Date:   Sat Aug 24 13:08:38 2024 +0900
+
+    CHORE : "signupUser" logic typ correction
+
+[33mcommit 910cbc92f8c7caa7045c824a6fe20e3f839aae53[m
+Author: TwooTwoo <ktw@twootwooui-MacBookAir.local>
+Date:   Sat Aug 24 13:06:03 2024 +0900
+
+    CHORE : signupUser logic typo correction
+
+[33mcommit 7efe15068fae3da3f7146610793bd91361a91b72[m
+Author: TwooTwoo <ktw@twootwooui-MacBookAir.local>
+Date:   Sat Aug 24 12:34:51 2024 +0900
+
+    CHORE : SignupUser logic typo correction
+
+[33mcommit 65c54a68371e26eefa94ceac0e50b83037b1e397[m
+Author: twootwoo <ktw@twootwooui-MacBookAir.local>
+Date:   Sat Aug 24 12:31:22 2024 +0900
+
+    chore : "signupUser" service logic typo correction
+
+[33mcommit 3caf67d49f1813208bfa0bbe50299b9a9f97fa89[m
+Author: twootwoo <mbnman12@gmail.com>
+Date:   Thu Aug 22 22:13:43 2024 +0900
+
+    modify MySQL password for preparing release
+
+[33mcommit 3b42ef10fd206e8cc0c0d65312a78d50aeb61996[m
+Author: twootwoo <mbnman12@gmail.com>
+Date:   Thu Aug 22 22:13:43 2024 +0900
+
+    CHORE : Modify MySQL Password
+
+[33mcommit c35b6f4e3418ef594cc9961f88a2fe9f78050f1e[m
+Author: twootwoo <mbnman12@gmail.com>
+Date:   Wed Aug 21 00:02:15 2024 +0900
+
+    1. Seperate signup and userIdDuplicateCheck logic 2. Add userIdDuplicateCheck logic 3. add login logic
+
+[33mcommit 6dd3c3e385a779db92be24d49aba35434db8b129[m
+Author: twootwoo <mbnman12@gmail.com>
+Date:   Tue Aug 20 00:20:55 2024 +0900
+
+    현재 회원가능 기능 개발 완료, last_visited_date는 dto 매핑이 어려워 잠시 미뤄둠
+
+[33mcommit 7f60d23398ed275733fc3e39a4e7c55ac166dad0[m
+Author: twootwoo <mbnman12@gmail.com>
+Date:   Tue Aug 20 00:16:28 2024 +0900
+
+    force push 했더니 채경완이 커밋한걸로 나와서 김태우가 다시 하는 커밋 ㅠㅠ
+
+[33mcommit ee5a35b220dfb7ace210315b8408a9dafe308bf2[m
+Author: twootwoo <mbnman12@gmail.com>
+Date:   Tue Aug 20 00:14:43 2024 +0900
+
+    김태우의 테스트 커밋. 강제 푸시 해버려서 이상하게 커밋이 되어버렸다.
+
+[33mcommit 0efd9b80d23b746cfdf8f55ce940f3616f35c5c4[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: twootwoo <manman12@gmail.com>
+Date:   Mon Aug 19 23:52:44 2024 +0900
+
+    회원가입_예외처리개발_거의완료
