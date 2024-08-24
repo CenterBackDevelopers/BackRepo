@@ -35,6 +35,7 @@ public class UserService {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
         // 5. 이름 자릿수 확인
+        // 240824(토) 로직 수정함
         else if(request.getUserName().length() < 2 || 10 < request.getUserName().length() ) {
             throw new IllegalArgumentException("이름은 1~10자리여야 합니다.");
         }
