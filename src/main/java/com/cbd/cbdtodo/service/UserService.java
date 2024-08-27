@@ -43,7 +43,7 @@ public class UserService {
                 (request.getUserId(), request.getUserPassword(), request.getUserPasswordConfirm(), request.getUserName()));
     }
 
-    @Transactional
+
     public void userIdDuplicateCheck(String userId) {
         if(userRepository.existsByUserId(userId)) {
             throw new IllegalArgumentException("이미 존재하는 아이디입니다.");
