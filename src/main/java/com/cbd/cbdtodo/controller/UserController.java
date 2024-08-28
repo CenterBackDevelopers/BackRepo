@@ -57,6 +57,8 @@ public class UserController {
             return new ResponseEntity<>("로그인 성공", HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("서버에서 에러가 발생해 아이디 중복 확인에 실패했습니다.",HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
