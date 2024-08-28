@@ -2,10 +2,13 @@ package com.cbd.cbdtodo.service;
 
 import com.cbd.cbdtodo.domain.User;
 import com.cbd.cbdtodo.domain.UserRepository;
+import com.cbd.cbdtodo.dto.user.UserChangeUserPasswordRequest;
 import com.cbd.cbdtodo.dto.user.UserLoginRequest;
 import com.cbd.cbdtodo.dto.user.UserSignupRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -44,16 +47,62 @@ public class UserService {
     }
 
 
+    @Transactional
     public void userIdDuplicateCheck(String userId) {
+        // 이미 존재하는 아이디인지 검증
         if(userRepository.existsByUserId(userId)) {
             throw new IllegalArgumentException("이미 존재하는 아이디입니다.");
         }
     }
 
-    //
+
     public void login(UserLoginRequest request) {
+        // userId와 userPassword 를 DB에 던져 존재하는지 검증
         if(!userRepository.existsByUserIdAndUserPassword(request.getUserId(), request.getUserPassword())){
             throw new IllegalArgumentException("아이디 또는 비밀번호가 틀렸습니다");
         }
     }
+
+    // Transactional 어노테이션 적용으로 Dirty Check가 작동해 user 객체에 변경사항 적용된 후 자동 save됨.
+    @Transactional
+    public void changeUserPassword(UserChangeUserPasswordRequest request) {
+        /*
+        // 원래 처음 하려던 방식으로, DB에 update문을 직접 날리려고 했다.
+        // 0. 요청한 userId에 해당하는 User 객체를 찾아서 옵셔널로 감싸서 받아온다. 아이디로 비밀번호를 찾는 과정.
+        Optional<User> OptUserReturnedByFindMethod = userRepository.findUserPasswordByUserId(request.getUserId());
+        // 1. 비밀번호가 존재하는지 확인하고 없으면 예외를 던진다.
+        if (OptUserReturnedByFindMethod.isEmpty()) {
+            throw new IllegalArgumentException("유저를 찾지 못했거나 유저의 비밀번호가 존재하지 않습니다.");
+        }
+        // 2. 바꾸고 싶은 비밀번호가 기존 비밀번호와 다른지 검증한다.
+            // 2-1. 옵셔널을 벗긴다.
+        User user = OptUserReturnedByFindMethod.get();
+            // 2-2. User 객체의 getUserPassword 로 우리가 찾은 유저의 기존 비밀번호를 가져온다.
+        String password = user.getUserPassword();
+            // 3. 검증 로직을 통해 만약 기존 비밀번호와 같다면 예외를 던진다.
+        if(request.getUserPasswordWantToChange().equals(password)) {
+            throw new IllegalArgumentException(("새 비밀번호는 기존 비밀번호와 같아서는 안됩니다."));
+        }
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new IllegalArgumentException("유저를 찾지 못했거나 유저의 비밀번호가 존재하지 않습니다."));
+
+         */
+
+        // 0. 요청한 userId와 userPassword 에 해당하는 User 객체를 찾아서 옵셔널로 감싸서 받아온다. 아이디로 비밀번호를 찾는 과정.
+        Optional<User> OptUserReturnedByFindMethod =
+                userRepository.findByUserIdAndUserPassword(request.getUserId(), request.getUserPassword());
+
+        // 1. 먼저 객체가 존재하는지 확인하고 없으면 예외를 던진다.
+        if (OptUserReturnedByFindMethod.isEmpty()) {
+            throw new IllegalArgumentException(("ID 또는 패스워드가 잘못 입력되었습니다."));
+        }
+        // 2. 비밀번호 변경을 시도한다
+            // 2-1. 옵셔널을 벗긴다.
+        User user = OptUserReturnedByFindMethod.get();
+            // 2-2. User 객체의 updateName 메소드로 변경을 시도한다.
+            // 기존 비밀번호와 같다면 여기서 예외가 던져진다.
+        user.updatePassword(request.getUserPasswordWantToChange());
+        // @Transactional 의 Dirty Check로 인해 자동 save된다.
+    }
+
 }

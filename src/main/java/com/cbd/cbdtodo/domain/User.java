@@ -42,4 +42,18 @@ public class User {
     public String getUserName() {
         return userName;
     }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    // 보안상의 이유로 getUserPassword 메소드는 만들지 않는 게 좋을 것 같아 로직을 User 객체 내부에 만들었음
+    public void updatePassword(String passwordWantToChange) {
+        if(passwordWantToChange.equals(this.userPassword)){
+            throw new IllegalArgumentException("기존과 같은 비밀번호로 변경할 수 없습니다.");
+        } else {
+            this.userPassword = passwordWantToChange;
+            this.userPasswordConfirm = passwordWantToChange;
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.cbd.cbdtodo.controller;
 
+import com.cbd.cbdtodo.dto.user.UserChangeUserPasswordRequest;
 import com.cbd.cbdtodo.dto.user.UserLoginRequest;
 import com.cbd.cbdtodo.dto.user.UserSignupRequest;
 import com.cbd.cbdtodo.service.UserService;
@@ -56,6 +57,18 @@ public class UserController {
             return new ResponseEntity<>("로그인 성공", HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @PatchMapping("/user")
+    public ResponseEntity<String> changeUserPassword(@RequestBody UserChangeUserPasswordRequest request) {
+        try {
+            userService.changeUserPassword(request);
+            return new ResponseEntity<>("비밀번호 변경 완료", HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>("서버에서 에러가 발생해 로그인에 실패했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
