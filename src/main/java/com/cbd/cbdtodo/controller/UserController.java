@@ -1,6 +1,7 @@
 package com.cbd.cbdtodo.controller;
 
 import com.cbd.cbdtodo.dto.user.UserChangeUserPasswordRequest;
+import com.cbd.cbdtodo.dto.user.UserDeleteRequest;
 import com.cbd.cbdtodo.dto.user.UserLoginRequest;
 import com.cbd.cbdtodo.dto.user.UserSignupRequest;
 import com.cbd.cbdtodo.service.UserService;
@@ -67,6 +68,22 @@ public class UserController {
         try {
             userService.changeUserPassword(request);
             return new ResponseEntity<>("비밀번호 변경 완료", HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>("서버에서 에러가 발생해 로그인에 실패했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /*
+    회원 탈퇴 기능은 로그인된 사용자만 접근할 수 있어야 한다.
+    따라서 추후에 세션 또는 토큰에서 현재 로그인된 사용자의 ID를 가져와서 사용할 수 있도록 변경할 예정이다.
+     */
+    @DeleteMapping("/user")
+    public ResponseEntity<String> deleteUser(@RequestBody UserDeleteRequest requesst) {
+        try {
+            userService.deleteUser(requesst.getUserId());
+            return new ResponseEntity<>("회원 탈퇴 완료", HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {

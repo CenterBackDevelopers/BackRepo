@@ -105,4 +105,13 @@ public class UserService {
         // @Transactional 의 Dirty Check로 인해 자동 save된다.
     }
 
+    //
+    @Transactional
+    public void deleteUser(String userId) {
+        if(!userRepository.existsByUserId(userId)) {
+            throw new IllegalArgumentException("존재하지 않는 아이디입니다. 아이디를 확인해주세요.");
+        }
+        userRepository.deleteById(userId);
+    }
+
 }
